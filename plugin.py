@@ -56,16 +56,31 @@ def _default_config() -> dict:
 
 
 def _load_config() -> dict:
-    """从插件目录加载 config.toml"""
+    """从插件目录加载 config.toml，首次加载时自动从模板生成"""
     if tomllib is None:
         return _default_config()
     config_path = _get_plugin_dir() / "config.toml"
     try:
         with open(config_path, "rb") as f:
             return tomllib.load(f)
-    except (FileNotFoundError, ValueError):
+    except FileNotFoundError:
+        return _init_config()
+    except ValueError:
         return _default_config()
 
+
+def _init_config() -> dict:
+    """首次加载时从 config.example.toml 模板复制生成 config.toml"""
+    plugin_dir = _get_plugin_dir()
+    example_path = plugin_dir / "config.example.toml"
+    config_path = plugin_dir / "config.toml"
+    try:
+        content = example_path.read_bytes()
+        config_path.write_bytes(content)
+        with open(config_path, "rb") as f:
+            return tomllib.load(f)
+    except Exception:
+        return _default_config()
 
 def _get_command_prefixes(config_cmd: dict) -> list:
     """从配置中获取命令前缀列表，兼容旧版单字符串格式"""
