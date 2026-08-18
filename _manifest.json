@@ -5,12 +5,12 @@
   "name": "塔罗牌占卜",
   "description": "塔罗牌占卜插件，支持单张抽牌和三张牌阵，支持AI解读，可配置指令与AI参数",
   "author": {
-    "name": "MaiBot Tarot",
-    "url": "https://github.com/mai-tarot"
+    "name": "Chenhui",
+    "url": "https://github.com/Chenhui-2"
   },
   "license": "MIT",
   "urls": {
-    "repository": "https://github.com/mai-tarot/mai-tarot"
+    "repository": "https://github.com/Chenhui-2/mai-tarot"
   },
   "host_application": {
     "min_version": "1.0.0",
