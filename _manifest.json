@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "id": "com.mai-tarot.plugin",
+  "id": "github.Chenhui-2.mai-tarot.plugin",
   "version": "1.0.0",
   "name": "塔罗牌占卜",
   "description": "塔罗牌占卜插件，支持单张抽牌和三张牌阵，支持AI解读，可配置指令与AI参数",
