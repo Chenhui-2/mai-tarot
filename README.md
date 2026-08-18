@@ -152,13 +152,19 @@ assets_dir = "assets/cards"
 | `assets_dir` | JPG 牌面素材目录（相对插件目录） |
 
 请自行在目录的相应位置添加卡图，命名规则如下
-文件命名规则
-"The Fool"       → the-fool.jpg
-"The Magician"   → the-magician.jpg
-"Ace of Wands"   → ace-of-wands.jpg
-"Knight of Cups" → knight-of-cups.jpg
 
-规则：英文名全小写 → 空格变连字符 → 去除非字母数字字符 → 加 .jpg
+**文件命名规则**
+
+牌面图片需按牌的英文名命名，示例如下：
+
+| 牌名 | 文件名 |
+|------|--------|
+| The Fool | `the-fool.jpg` |
+| The Magician | `the-magician.jpg` |
+| Ace of Wands | `ace-of-wands.jpg` |
+| Knight of Cups | `knight-of-cups.jpg` |
+
+> 转换步骤：**英文名全小写** → **空格转连字符** → **去除非字母数字字符** → **追加 `.jpg` 后缀**
 
 ---
 
