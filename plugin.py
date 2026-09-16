@@ -287,11 +287,11 @@ class TarotPlugin(MaiBotPlugin):
         temperature = self._ai_config.get("temperature", 0.7)
         max_tokens = self._ai_config.get("max_tokens", 800)
 
-        # 读取任务名，默认使用 utils 任务
-        model = self._ai_config.get("model", "utils") or "utils"
+        # 读取模型名称，默认使用 replyer 模型
+        model = self._ai_config.get("model", "replyer") or "replyer"
 
         try:
-            # 使用 utils 任务进行塔罗牌解读
+            # 使用 replyer 模型进行塔罗牌解读
             result = await self.ctx.llm.generate(
                 prompt=[
                     {"role": "system", "content": system_prompt},
