@@ -218,7 +218,17 @@ class TarotPlugin(MaiBotPlugin):
 
     async def _draw_three(self, stream_id: str, question: str = "") -> str:
         """三张牌占卜 - 使用 AI 解读"""
-        results = [_pick_card() for _ in range(3)]
+        results = []
+        for card in random.sample(ALL_CARDS, 3):
+            is_upright = random.choice([True, False])
+            position = "正位" if is_upright else "逆位"
+            interpretation = card["upright"] if is_upright else card["reversed"]
+            results.append({
+                "card": card,
+                "is_upright": is_upright,
+                "position": position,
+                "interpretation": interpretation,
+            })
         aspects = ["积极的方面", "消极的方面", "中性的方面"]
 
         # 构建牌面概览
@@ -277,17 +287,17 @@ class TarotPlugin(MaiBotPlugin):
         temperature = self._ai_config.get("temperature", 0.7)
         max_tokens = self._ai_config.get("max_tokens", 800)
 
-        # 读取模型名称，默认使用 replyer 模型
-        model = self._ai_config.get("model", "replyer") or "replyer"
+        # 读取任务名，默认使用 utils 任务
+        model = self._ai_config.get("model", "utils") or "utils"
 
         try:
-            # 使用 replyer 模型进行塔罗牌解读
+            # 使用 utils 任务进行塔罗牌解读
             result = await self.ctx.llm.generate(
                 prompt=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": prompt},
                 ],
-                model=model,
+                task_name=model,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
