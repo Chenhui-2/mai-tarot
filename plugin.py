@@ -296,12 +296,12 @@ class TarotPlugin(MaiBotPlugin):
             prompt=f"{system_prompt}\n\n{prompt}",
             task_name=model,
             ...
-        )
-        response = result.get("response") or result.get("content") or ""
-        if response:
-            return self._format_ai_response(str(response), results, aspects)
-        else:
-            return "⚠️ AI 解读暂时不可用，请稍后再试。"
+            )
+            response = result.get("response") or result.get("content") or ""
+            if response:
+                return self._format_ai_response(str(response), results, aspects)
+            else:
+                return "⚠️ AI 解读暂时不可用，请稍后再试。"
 
     def _format_ai_response(self, response: str, results: list, aspects: list) -> str:
         """格式化 AI 回复，确保结构清晰"""
