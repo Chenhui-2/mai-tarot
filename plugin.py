@@ -293,24 +293,15 @@ class TarotPlugin(MaiBotPlugin):
         try:
             # 使用 replyer 模型进行塔罗牌解读
             result = await self.ctx.llm.generate(
-                prompt=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt},
-                ],
-                task_name=model,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
-
-            if result.get("success"):
-                response = result["response"]
-                # 尝试结构化输出
-                return self._format_ai_response(response, results, aspects)
-            else:
-                return "⚠️ AI 解读暂时不可用，请稍后再试。"
-        except Exception as e:
-            self.ctx.logger.error("AI 解读失败: %s", str(e))
-            return "⚠️ AI 解读服务异常，已展示牌面基础含义。请查看上方牌面信息。"
+            prompt=f"{system_prompt}\n\n{prompt}",
+            task_name=model,
+            ...
+        )
+        response = result.get("response") or result.get("content") or ""
+        if response:
+            return self._format_ai_response(str(response), results, aspects)
+        else:
+            return "⚠️ AI 解读暂时不可用，请稍后再试。"
 
     def _format_ai_response(self, response: str, results: list, aspects: list) -> str:
         """格式化 AI 回复，确保结构清晰"""
